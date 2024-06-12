@@ -7,7 +7,10 @@ export default function App() {
 
   const getFotos = async () => {
     const request = await getGato()
-    setFotos(request.slice(0, 5))
+    setFotos(prevFotos => [
+      ...request.slice(0, 5), ...prevFotos
+    ]
+    )
   }
 
   const renderItem = ({item}) => (
