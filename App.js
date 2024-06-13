@@ -35,7 +35,7 @@ export default function App() {
         style={({pressed}) => 
           [
             styles.button, 
-          { backgroundColor: pressed ? '#0D47A1' : '#1A237E',}
+          { backgroundColor: pressed ? '#3700B3' : '#6200EE',}
           ]
       }
           >
