@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { StyleSheet, Text, Pressable, FlatList, View, Image } from 'react-native';
+import { Text, Pressable, FlatList, View, Image } from 'react-native';
 import { getGato } from './services/GatitosService.js';
+import styles from './styles.js';
 
 export default function App() {
   const [fotos, setFotos] = useState([])
@@ -16,23 +17,22 @@ export default function App() {
   const renderItem = ({item}) => (
     <Image
       source={{uri: item.url}}
-      style={{width: '30%', height: 200, marginVertical: 10}}
+      style={styles.image}
     />
   ) 
 
   return (
-    <View style={{flex: 1, padding: 20}}>
+    <View style={styles.container}>
       <Pressable
         onPress={getFotos}
-        style={({pressed}) => [{
-          backgroundColor: pressed ? '#FF0000' : '#FFFF00',
-          padding: 20,
-          alignItems: 'center',
-          marginBottom: 10
-        }]
+        style={({pressed}) => 
+          [
+            styles.button, 
+          { backgroundColor: pressed ? '#0D47A1' : '#1A237E',}
+          ]
       }
           >
-        <Text>CLICA AQUI</Text>
+        <Text style={styles.buttonText}>CLICA AQUI</Text>
       </Pressable>
       <FlatList
       data={fotos}
