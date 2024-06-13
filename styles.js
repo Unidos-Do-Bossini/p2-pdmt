@@ -17,9 +17,15 @@ export default StyleSheet.create({
         color: '#FFF',
       },
       image: {
-        width: '30%',
-        height: 200,
+        width: 400,
+        height: 400,
         marginVertical: 10,
         borderRadius: 10,
+      },
+      listContainer: {
+        flexGrow: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 20,
       },
 })

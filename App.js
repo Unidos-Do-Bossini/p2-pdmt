@@ -1,17 +1,24 @@
 import React, { useState } from 'react'
-import { Text, Pressable, FlatList, View, Image } from 'react-native';
+import { Text, Pressable, FlatList, View, Image, ActivityIndicator, Alert } from 'react-native';
 import { getGato } from './services/GatitosService.js';
 import styles from './styles.js';
 
 export default function App() {
   const [fotos, setFotos] = useState([])
+  const [loading, setLoading] = useState(false)
 
   const getFotos = async () => {
-    const request = await getGato()
-    setFotos(prevFotos => [
-      ...request.slice(0, 5), ...prevFotos
-    ]
-    )
+    setLoading(true)
+    try{
+      const request = await getGato()
+      setFotos(prevFotos => [...request.slice(0, 5), ...prevFotos])
+    }catch(error){
+      Alert.alert('Erro', 'Nao foi possivel carregar as imagens. Tente de novo.')
+    }finally{
+      setLoading(false)
+    }
+    
+    
   }
 
   const renderItem = ({item}) => (
@@ -34,11 +41,13 @@ export default function App() {
           >
         <Text style={styles.buttonText}>CLICA AQUI</Text>
       </Pressable>
-      <FlatList
+      {loading  ? (<ActivityIndicator size="large" color="#0000ff"/>
+      ) : (<FlatList
+      contentContainerStyle={styles.listContainer}
       data={fotos}
       renderItem={renderItem}
       keyExtractor={(item, index) => index.toString()}
-      ></FlatList>
+      ></FlatList>)}
     </View>
   );
 }
